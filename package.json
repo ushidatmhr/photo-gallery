@@ -1,0 +1,30 @@
+{
+  "name": "photogallery",
+  "version": "1.0.0",
+  "description": "Electron製の簡易画像ビューア",
+  "main": "app/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ushidatmhr/PhotoGallery.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ushidatmhr/PhotoGallery/issues"
+  },
+  "homepage": "https://github.com/ushidatmhr/PhotoGallery#readme",
+  "dependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babelify": "^7.3.0",
+    "browserify": "^14.4.0",
+    "electron-prebuilt": "^1.4.13",
+    "gulp": "^3.9.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
