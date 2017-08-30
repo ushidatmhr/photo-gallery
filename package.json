@@ -23,6 +23,8 @@
     "browserify": "^14.4.0",
     "electron-prebuilt": "^1.4.13",
     "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.0",
+    "gulp-less": "^3.3.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "vinyl-source-stream": "^1.1.0"
