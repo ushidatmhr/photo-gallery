@@ -4,6 +4,8 @@
   "description": "Electron製の簡易画像ビューア",
   "main": "app/index.js",
   "scripts": {
+    "gulp": "gulp",
+    "electron": "electron ./app/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,6 +23,7 @@
     "babel-preset-react": "^6.24.1",
     "babelify": "^7.3.0",
     "browserify": "^14.4.0",
+    "electron": "^1.7.6",
     "electron-prebuilt": "^1.4.13",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",
