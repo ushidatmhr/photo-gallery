@@ -19,8 +19,18 @@ class PhotoGalleryApp extends React.Component {
 
         this.changeViewMode = this.changeViewMode.bind(this);
         this.changePrevireMode = this.changePrevireMode.bind(this);
+        this.oprnFileHandler = this.oprnFileHandler.bind(this);
+        this.dropFileHandler = this.dropFileHandler.bind(this);
 
-        this.openDirectory();
+        // document.getElementById('photo-gallery').addEventListener('drop', function(e){
+        //     alert();
+        // });
+        // this.openDirectory();
+
+        document.ondrop = function (e) {
+            e.preventDefault();
+            return false;
+        }
     }
 
 
@@ -74,6 +84,41 @@ class PhotoGalleryApp extends React.Component {
             });
 
         }));
+    }
+
+
+    dirView(directory) {
+        fs.readdir(directory, (error, files) => {
+            if (error != null) {
+                alert('error : ' + error);
+                return;
+            }
+
+            files.sort(this.compareFileNames);
+
+            var fList = [];
+
+            // ファイルを順次処理
+            files.forEach((file, index) => {
+
+                if (!this.checkImageFile(file)) {
+                    return;
+                }
+
+                fList.push({
+                    path: 'file:///' + directory + '/' + encodeURI(file),
+                    preview: false
+                });
+            });
+
+            this.setState((prevState) => ({
+                fileList: fList,
+                backdrop: false
+            }));
+
+            document.body.style.overflow = '';
+
+        });
     }
 
 
@@ -133,6 +178,22 @@ class PhotoGalleryApp extends React.Component {
         return true;
     }
 
+    oprnFileHandler(e) {
+        e.preventDefault();
+        this.openDirectory();
+    }
+
+
+    dropFileHandler(e) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        var targetFile = e.dataTransfer.files[0];
+        this.dirView(targetFile.path);
+
+        return false;
+    }
+
 
     /**
      * 画像一覧の表示モードを切り替える  
@@ -185,8 +246,9 @@ class PhotoGalleryApp extends React.Component {
     render() {
         var backdropStyles = this.state.backdrop ? {} : { display: 'none' };
         return (
-            <section id="photo-gallery">
+            <section id="photo-gallery" onDrop={this.dropFileHandler}>
                 <button onClick={this.changeViewMode}>Mode</button>
+                <button onClick={this.oprnFileHandler}>Open</button>
                 <ul className={`img-list ${this.state.viewStyle}`}>
                     {this.state.fileList.map((file, index) => (
                         <li key={index} onClick={this.changePrevireMode} className={file.preview ? 'preview' : ''}>

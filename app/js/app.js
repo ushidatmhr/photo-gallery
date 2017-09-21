@@ -44,8 +44,18 @@ var PhotoGalleryApp = function (_React$Component) {
 
         _this.changeViewMode = _this.changeViewMode.bind(_this);
         _this.changePrevireMode = _this.changePrevireMode.bind(_this);
+        _this.oprnFileHandler = _this.oprnFileHandler.bind(_this);
+        _this.dropFileHandler = _this.dropFileHandler.bind(_this);
 
-        _this.openDirectory();
+        // document.getElementById('photo-gallery').addEventListener('drop', function(e){
+        //     alert();
+        // });
+        // this.openDirectory();
+
+        document.ondrop = function (e) {
+            e.preventDefault();
+            return false;
+        };
         return _this;
     }
 
@@ -103,6 +113,44 @@ var PhotoGalleryApp = function (_React$Component) {
                         });
                     });
                 });
+            });
+        }
+    }, {
+        key: 'dirView',
+        value: function dirView(directory) {
+            var _this3 = this;
+
+            _fs2.default.readdir(directory, function (error, files) {
+                if (error != null) {
+                    alert('error : ' + error);
+                    return;
+                }
+
+                files.sort(_this3.compareFileNames);
+
+                var fList = [];
+
+                // ファイルを順次処理
+                files.forEach(function (file, index) {
+
+                    if (!_this3.checkImageFile(file)) {
+                        return;
+                    }
+
+                    fList.push({
+                        path: 'file:///' + directory + '/' + encodeURI(file),
+                        preview: false
+                    });
+                });
+
+                _this3.setState(function (prevState) {
+                    return {
+                        fileList: fList,
+                        backdrop: false
+                    };
+                });
+
+                document.body.style.overflow = '';
             });
         }
 
@@ -166,6 +214,23 @@ var PhotoGalleryApp = function (_React$Component) {
 
             return true;
         }
+    }, {
+        key: 'oprnFileHandler',
+        value: function oprnFileHandler(e) {
+            e.preventDefault();
+            this.openDirectory();
+        }
+    }, {
+        key: 'dropFileHandler',
+        value: function dropFileHandler(e) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            var targetFile = e.dataTransfer.files[0];
+            this.dirView(targetFile.path);
+
+            return false;
+        }
 
         /**
          * 画像一覧の表示モードを切り替える  
@@ -225,16 +290,21 @@ var PhotoGalleryApp = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this3 = this;
+            var _this4 = this;
 
             var backdropStyles = this.state.backdrop ? {} : { display: 'none' };
             return _react2.default.createElement(
                 'section',
-                { id: 'photo-gallery' },
+                { id: 'photo-gallery', onDrop: this.dropFileHandler },
                 _react2.default.createElement(
                     'button',
                     { onClick: this.changeViewMode },
                     'Mode'
+                ),
+                _react2.default.createElement(
+                    'button',
+                    { onClick: this.oprnFileHandler },
+                    'Open'
                 ),
                 _react2.default.createElement(
                     'ul',
@@ -242,7 +312,7 @@ var PhotoGalleryApp = function (_React$Component) {
                     this.state.fileList.map(function (file, index) {
                         return _react2.default.createElement(
                             'li',
-                            { key: index, onClick: _this3.changePrevireMode, className: file.preview ? 'preview' : '' },
+                            { key: index, onClick: _this4.changePrevireMode, className: file.preview ? 'preview' : '' },
                             _react2.default.createElement('img', { id: index, src: file.path })
                         );
                     })

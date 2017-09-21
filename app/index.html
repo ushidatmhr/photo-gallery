@@ -15,6 +15,16 @@
     // You can also require other files to run in this process
     require('./js/app.js')
 
+    document.addEventListener('drop', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+    });
+
+    document.addEventListener('dragover', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+    })
+
 </script>
 
 </html>

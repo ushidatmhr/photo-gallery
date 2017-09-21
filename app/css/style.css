@@ -1,6 +1,10 @@
+/* リセット系 */
+body {
+  margin: 0;
+}
 #photo-gallery {
   width: 100%;
-  padding: 40px 0;
+  background-color: #E0E0E0;
 }
 #photo-gallery .img-list {
   list-style-type: none;
@@ -33,6 +37,7 @@
   max-width: none !important;
   width: 100% !important;
   height: 100% !important;
+  margin: 0 !important;
   position: fixed;
   top: 0;
   left: 0;
