@@ -294,28 +294,36 @@ var PhotoGalleryApp = function (_React$Component) {
 
             var backdropStyles = this.state.backdrop ? {} : { display: 'none' };
             return _react2.default.createElement(
-                'section',
+                'div',
                 { id: 'photo-gallery', onDrop: this.dropFileHandler },
                 _react2.default.createElement(
-                    'button',
-                    { onClick: this.changeViewMode },
-                    'Mode'
+                    'header',
+                    null,
+                    _react2.default.createElement(
+                        'button',
+                        { onClick: this.changeViewMode },
+                        'Mode'
+                    ),
+                    _react2.default.createElement(
+                        'button',
+                        { onClick: this.oprnFileHandler },
+                        'Open'
+                    )
                 ),
                 _react2.default.createElement(
-                    'button',
-                    { onClick: this.oprnFileHandler },
-                    'Open'
-                ),
-                _react2.default.createElement(
-                    'ul',
-                    { className: 'img-list ' + this.state.viewStyle },
-                    this.state.fileList.map(function (file, index) {
-                        return _react2.default.createElement(
-                            'li',
-                            { key: index, onClick: _this4.changePrevireMode, className: file.preview ? 'preview' : '' },
-                            _react2.default.createElement('img', { id: index, src: file.path })
-                        );
-                    })
+                    'section',
+                    { className: 'gallery-container' },
+                    _react2.default.createElement(
+                        'ul',
+                        { className: 'img-list ' + this.state.viewStyle },
+                        this.state.fileList.map(function (file, index) {
+                            return _react2.default.createElement(
+                                'li',
+                                { key: index, onClick: _this4.changePrevireMode, className: file.preview ? 'preview' : '' },
+                                _react2.default.createElement('img', { id: index, src: file.path })
+                            );
+                        })
+                    )
                 ),
                 _react2.default.createElement('div', { className: 'img-backdrop', style: backdropStyles })
             );

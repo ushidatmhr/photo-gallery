@@ -14,63 +14,80 @@ body {
 
 #photo-gallery {
     width: 100%;
-    // height: 100%;
-    // padding: 40px 0;
-    background-color: #E0E0E0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 
-    .img-list {
-        list-style-type: none;
-        display: flex;
+    header {
+        width: 100%;
+        height: 40px;
+        background-color: #333333;
+    }
 
-        &.list {
-            width: 90%;
-            flex-direction: column;
-            align-items: center;
+    .gallery-container {
+        width: 100%;
+        height: 100vh;
+        overflow-y: scroll;
+        background-color: #E0E0E0;
 
-            li {
-                margin-bottom: 30px;
+        .img-list {
+            list-style-type: none;
+            display: flex;
+            margin: 0;
+            padding: 10px;
 
-                img {
-                    width: 100%;
+            &.list {
+                width: 90%;
+                flex-direction: column;
+                align-items: center;
+
+                li {
+                    margin-bottom: 30px;
+
+                    img {
+                        width: 100%;
+                    }
                 }
             }
-        }
 
-        &.grid {
-            flex-direction: row;
-            flex-wrap: wrap;
+            &.grid {
+                flex-direction: row;
+                flex-wrap: wrap;
 
-            li {
-                margin: 10px 10px;
-                height: 250px;
+                li {
+                    margin: 10px 10px;
+                    height: 250px;
 
-                img {
-                    width: auto;
-                    height: 100%;
+                    img {
+                        width: auto;
+                        height: 100%;
+                    }
                 }
             }
-        }
 
-        .preview {
-            max-width: none !important;
-            width: 100% !important;
-            height: 100% !important;
-            margin: 0 !important;
-            position: fixed;
-            top: 0;
-            left: 0;
-            overflow-x: scroll;
-            overflow-y: scroll;
-            text-align: center;
-            z-index: 1001;
-        
-            & > img {
-                width: auto !important;
+            .preview {
                 max-width: none !important;
-                height: auto !important;
-                max-height: none !important;
+                width: 100% !important;
+                height: 100% !important;
+                margin: 0 !important;
+                position: fixed;
+                top: 0;
+                left: 0;
+                overflow-x: scroll;
+                overflow-y: scroll;
+                text-align: center;
+                z-index: 1001;
+            
+                & > img {
+                    width: auto !important;
+                    max-width: none !important;
+                    height: auto !important;
+                    max-height: none !important;
+                }
             }
         }
+
     }
 
     .img-backdrop {

@@ -246,18 +246,22 @@ class PhotoGalleryApp extends React.Component {
     render() {
         var backdropStyles = this.state.backdrop ? {} : { display: 'none' };
         return (
-            <section id="photo-gallery" onDrop={this.dropFileHandler}>
-                <button onClick={this.changeViewMode}>Mode</button>
-                <button onClick={this.oprnFileHandler}>Open</button>
-                <ul className={`img-list ${this.state.viewStyle}`}>
-                    {this.state.fileList.map((file, index) => (
-                        <li key={index} onClick={this.changePrevireMode} className={file.preview ? 'preview' : ''}>
-                            <img id={index} src={file.path} />
-                        </li>
-                    ))}
-                </ul>
+            <div id="photo-gallery" onDrop={this.dropFileHandler}>
+                <header>
+                    <button onClick={this.changeViewMode}>Mode</button>
+                    <button onClick={this.oprnFileHandler}>Open</button>
+                </header>
+                <section className="gallery-container">
+                    <ul className={`img-list ${this.state.viewStyle}`}>
+                        {this.state.fileList.map((file, index) => (
+                            <li key={index} onClick={this.changePrevireMode} className={file.preview ? 'preview' : ''}>
+                                <img id={index} src={file.path} />
+                            </li>
+                        ))}
+                    </ul>
+                </section>
                 <div className="img-backdrop" style={backdropStyles}></div>
-            </section>
+            </div>
         )
     }
 
