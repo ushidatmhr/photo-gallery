@@ -17,14 +17,14 @@ const babel = require('gulp-babel');
 gulp.task('babel', function () {
     gulp.src('./src/script/app.jsx')
         .pipe(babel())
-        .pipe(gulp.dest('./app/js'))
+        .pipe(gulp.dest('./app'))
 });
 
 gulp.task('less', () => {
     return gulp.src('./src/style/*.less')
         .pipe(less())
         .on("error", function (err) { console.log("Error : " + err.message); })
-        .pipe(gulp.dest('./app/css'));
+        .pipe(gulp.dest('./app'));
 });
 
 gulp.task('watch', function () {
