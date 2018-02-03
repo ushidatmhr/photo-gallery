@@ -14,7 +14,8 @@ class PhotoGalleryApp extends React.Component {
         this.state = {
             fileList: [],
             viewStyle: 'list',
-            display: 'none'
+            display: 'none',
+            fileMenuStyle: 'open'
         };
 
         this.changeViewMode = this.changeViewMode.bind(this);
@@ -243,6 +244,16 @@ class PhotoGalleryApp extends React.Component {
     }
 
 
+    toggleFileMenu(e) {
+
+        var style = this.state.fileMenuStyle == 'open' ? 'close' : 'open';
+
+        this.setState((prevState) => ({
+            fileMenuStyle: style
+        }));
+    }
+
+
     render() {
         var backdropStyles = this.state.backdrop ? {} : { display: 'none' };
         return (
@@ -250,6 +261,7 @@ class PhotoGalleryApp extends React.Component {
                 <header>
                     <button onClick={this.changeViewMode}>Mode</button>
                     <button onClick={this.oprnFileHandler}>Open</button>
+                    <button onClick={() => this.toggleFileMenu()}>三</button>
                 </header>
                 <section className="main-content">
                     <section className="gallery-container">
@@ -261,8 +273,8 @@ class PhotoGalleryApp extends React.Component {
                             ))}
                         </ul>
                     </section>
-                    <nav className="file-list-menu">
-                        
+                    <nav className={`file-list-menu ${this.state.fileMenuStyle}`}>
+
                     </nav>
                 </section>
                 <div className="img-backdrop" style={backdropStyles}></div>
