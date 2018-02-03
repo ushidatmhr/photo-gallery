@@ -251,14 +251,19 @@ class PhotoGalleryApp extends React.Component {
                     <button onClick={this.changeViewMode}>Mode</button>
                     <button onClick={this.oprnFileHandler}>Open</button>
                 </header>
-                <section className="gallery-container">
-                    <ul className={`img-list ${this.state.viewStyle}`}>
-                        {this.state.fileList.map((file, index) => (
-                            <li key={index} onClick={this.changePrevireMode} className={file.preview ? 'preview' : ''}>
-                                <img id={index} src={file.path} />
-                            </li>
-                        ))}
-                    </ul>
+                <section className="main-content">
+                    <section className="gallery-container">
+                        <ul className={`img-list ${this.state.viewStyle}`}>
+                            {this.state.fileList.map((file, index) => (
+                                <li key={index} onClick={this.changePrevireMode} className={file.preview ? 'preview' : ''}>
+                                    <img id={index} src={file.path} />
+                                </li>
+                            ))}
+                        </ul>
+                    </section>
+                    <nav className="file-list-menu">
+                        
+                    </nav>
                 </section>
                 <div className="img-backdrop" style={backdropStyles}></div>
             </div>
