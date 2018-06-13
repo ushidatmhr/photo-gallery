@@ -4,7 +4,7 @@ module.exports = {
     mode: 'development',
     entry: {
         main: './src/main.ts',
-        app: './src/script/app.tsx'
+        app: './src/script/index.tsx'
     },
     output: {
         path: path.resolve(__dirname, '../app'),
