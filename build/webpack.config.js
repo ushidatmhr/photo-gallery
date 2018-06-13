@@ -3,7 +3,8 @@ const path = require('path');
 module.exports = {
     mode: 'development',
     entry: {
-        main: './src/main.ts'
+        main: './src/main.ts',
+        app: './src/script/app.tsx'
     },
     output: {
         path: path.resolve(__dirname, '../app'),
@@ -16,9 +17,12 @@ module.exports = {
     module: {
         rules: [{
             test: /\.tsx?$/,
-            loader: 'ts-loader'
+            loader: 'awesome-typescript-loader'
         },
         ]
     },
-    target: 'electron-main'
+    target: 'electron-main',
+    node: {
+        __dirname: false
+    },
 }
