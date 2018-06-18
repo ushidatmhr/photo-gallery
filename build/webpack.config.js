@@ -18,7 +18,10 @@ module.exports = {
         rules: [{
             test: /\.tsx?$/,
             loader: 'ts-loader'
-        },
+        },{
+            test: /\.css$/,
+            loader: ['style-loader', 'css-loader?modules']
+        }
         ]
     },
     target: 'electron-main',

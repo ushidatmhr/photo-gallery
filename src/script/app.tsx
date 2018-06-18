@@ -1,5 +1,6 @@
 import * as React from 'react'
 import Files, { File } from './api/Files';
+import style from '../style/app.css'
 
 export interface AppState {
     dirList: File[],
@@ -37,11 +38,11 @@ export default class PhotoGalleryApp extends React.Component<{}, AppState> {
         return (
             <div>
                 <button onClick={this.openFileDialog}>open</button>
-                <section>
+                <ul className={style.section}>
                     {this.state.dirList.map((item) => (
-                        <a>{item.name}</a>
+                        <li>{item.name}</li>
                     ))}
-                </section>
+                </ul>
             </div>
         )
     }
