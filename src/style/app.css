@@ -1,3 +1,11 @@
-.section{
-    background-color: brown;
+.main {
+    display: flex;
+}
+
+.mainContents {
+    width: 100%;
+}
+
+.sideMenu {
+    width: 500px;
 }

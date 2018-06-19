@@ -1,11 +1,11 @@
 import * as React from 'react'
 import Files, { File } from './api/Files';
 import style from '../style/app.css'
+import Explorer from './Explorer';
 
 export interface AppState {
     dirList: File[],
     fileList: string[],
-    list: number[]
 }
 
 export default class PhotoGalleryApp extends React.Component<{}, AppState> {
@@ -14,8 +14,7 @@ export default class PhotoGalleryApp extends React.Component<{}, AppState> {
         super(props);
         this.state = {
             dirList: [],
-            fileList: ['s'],
-            list: []
+            fileList: []
         }
 
         this.openFileDialog = this.openFileDialog.bind(this);
@@ -36,13 +35,15 @@ export default class PhotoGalleryApp extends React.Component<{}, AppState> {
 
     render() {
         return (
-            <div>
-                <button onClick={this.openFileDialog}>open</button>
-                <ul className={style.section}>
-                    {this.state.dirList.map((item) => (
-                        <li>{item.name}</li>
-                    ))}
-                </ul>
+            <div className={style.main}>
+                <section className={style.mainContents}>
+                    <section>
+                        <button onClick={this.openFileDialog}>open</button>
+                    </section>
+                </section>
+                <section className={style.sideMenu}>
+                    <Explorer dirList={this.state.dirList} />
+                </section>
             </div>
         )
     }
