@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Files, { File } from './api/Files'
+import { File } from './api/Files'
 import style from '../style/explorer.css'
 
 export interface ExplorerProps {
@@ -18,36 +18,16 @@ export default class Explorer extends React.Component<ExplorerProps, ExplorerSta
         this.state = {
         }
 
+        this.openTree = this.openTree.bind(this);
         this.childNode = this.childNode.bind(this);
     }
 
 
-
-    componentWillMount(): boolean {
-
-        var displayList = this.initDisplayFlag(this.props.dirList, [], false);
-
-        this.setState({
-            display: displayList
-        });
-
-        return true;
-    }
-
-
-
-    private initDisplayFlag(files: File[], displayList: boolean[], isChild: boolean) {
-
-        files.forEach((file) => {
-            displayList[file.name] = !isChild;
-            this.initDisplayFlag(file.dir, displayList, true);
-        })
-
-        return displayList;
-    }
-
-
-    openTree(event: React.MouseEvent<HTMLLIElement>) {
+    /**
+     * ディレクトリツリーの開閉を行う
+     * @param event イベント
+     */
+    openTree(event: React.MouseEvent<HTMLLIElement>): void {
 
         event.stopPropagation();
 
@@ -64,6 +44,11 @@ export default class Explorer extends React.Component<ExplorerProps, ExplorerSta
     }
 
 
+    /**
+     * 
+     * @param list この階層で表示するディレクトリ
+     * @param parent 親要素
+     */
     childNode(list: File[], parent: string): JSX.Element {
 
         if (!list) {
@@ -73,12 +58,11 @@ export default class Explorer extends React.Component<ExplorerProps, ExplorerSta
         return (
             <ul className={style.dirList} style={{ display: (!parent) ? '' : 'none' }}>
                 {list.map((item) => (
-                    <li key={item.name} onClick={this.openTree} data-name={parent}>
+                    <li key={item.name} onClick={this.openTree}>
                         {item.name}
                         {this.childNode(item.dir, item.name)}
                     </li>
                 ))}
-                {/* parent:{parent}{this.state.display[parent].toString()} */}
             </ul>
         )
     }
