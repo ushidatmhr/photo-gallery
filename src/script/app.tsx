@@ -5,7 +5,7 @@ import Explorer from './Explorer';
 
 export interface AppState {
     dirList: File[],
-    fileList: string[],
+    fileList: File[],
 }
 
 export default class PhotoGalleryApp extends React.Component<{}, AppState> {
@@ -18,6 +18,8 @@ export default class PhotoGalleryApp extends React.Component<{}, AppState> {
         }
 
         this.openFileDialog = this.openFileDialog.bind(this);
+        this.selectFile = this.selectFile.bind(this);
+        this.galleryRender = this.galleryRender.bind(this);
     }
 
 
@@ -33,6 +35,28 @@ export default class PhotoGalleryApp extends React.Component<{}, AppState> {
     }
 
 
+    public selectFile(dir: File) {
+        var files = Files.openDirectory(dir.path, Files.FileType.img);
+        this.setState({
+            fileList: files
+        });
+        console.log(files)
+    }
+
+
+    galleryRender() {
+        return (
+            <div>
+                {this.state.fileList.map((file) => (
+                    <div key={file.name}>
+                        <img src={file.path} />
+                    </div>
+                ))}
+            </div>
+        )
+    }
+
+
     render() {
         return (
             <div className={style.main}>
@@ -40,9 +64,12 @@ export default class PhotoGalleryApp extends React.Component<{}, AppState> {
                     <section>
                         <button onClick={this.openFileDialog}>open</button>
                     </section>
+                    <div>
+                        {this.galleryRender()}
+                    </div>
                 </section>
                 <section className={style.sideMenu}>
-                    <Explorer dirList={this.state.dirList} />
+                    <Explorer dirList={this.state.dirList} fileSelect={this.selectFile} />
                 </section>
             </div>
         )

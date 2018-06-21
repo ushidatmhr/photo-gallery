@@ -3,7 +3,8 @@ import { File } from './api/Files'
 import style from '../style/explorer.css'
 
 export interface ExplorerProps {
-    dirList: File[]
+    dirList: File[],
+    fileSelect: (dir: File) => void
 }
 
 export interface ExplorerState {
@@ -31,7 +32,7 @@ export default class Explorer extends React.Component<ExplorerProps, ExplorerSta
 
         event.stopPropagation();
 
-        var ulElement = event.currentTarget.firstElementChild as HTMLUListElement;
+        var ulElement = event.currentTarget.parentElement.parentElement.lastElementChild as HTMLUListElement;
 
         switch (ulElement.style.display) {
             case 'block':
@@ -41,6 +42,11 @@ export default class Explorer extends React.Component<ExplorerProps, ExplorerSta
                 ulElement.style.display = 'block';
                 break;
         }
+    }
+
+
+    selectDir(dir: File) {
+        this.props.fileSelect(dir);
     }
 
 
@@ -58,8 +64,11 @@ export default class Explorer extends React.Component<ExplorerProps, ExplorerSta
         return (
             <ul className={style.dirList} style={{ display: (!parent) ? '' : 'none' }}>
                 {list.map((item) => (
-                    <li key={item.name} onClick={this.openTree}>
-                        {item.name}
+                    <li key={item.name}>
+                        <section>
+                            <span onClick={this.openTree}>▼</span>
+                            <span onClick={this.selectDir.bind(this, item)}>{item.name}</span>
+                        </section>
                         {this.childNode(item.dir, item.name)}
                     </li>
                 ))}

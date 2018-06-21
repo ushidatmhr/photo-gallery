@@ -4,6 +4,11 @@ import path from "path";
 
 export default class Files {
 
+    public static readonly FileType = {
+        img: ['.jpg', '.jpeg', '.png', '.gif', '.bmp']
+    }
+
+
     /**
      * 
      * @param callback 
@@ -58,6 +63,52 @@ export default class Files {
                 list.push(f);
             }
         });
+    }
+
+
+    /**
+     * ディレクトリ内のファイル一覧を取得する。
+     * @param dirPath ディレクトリパス
+     * @param types ファイルタイプ
+     */
+    public static openDirectory(dirPath: string, types: string[]): File[] {
+
+        var fileList: File[] = [];
+
+        var files = fs.readdirSync(dirPath);
+
+        files.forEach((file, index) => {
+
+            var p = path.join(dirPath, file);
+
+            if (fs.statSync(p).isFile && this.isFileType(file, types)) {
+
+                fileList.push({
+                    name: file,
+                    path: p,
+                    dir: []
+                });
+            }
+        });
+
+        return fileList;
+    }
+
+
+    /**
+     * ファイルが指定の拡張しかを判定する
+     * @param file ファイル
+     * @param types 判定する拡張子
+     */
+    private static isFileType(file: string, types: string[]): boolean {
+
+        var extname = path.extname(file).toLowerCase();
+
+        if (types.indexOf(extname) == -1) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 
