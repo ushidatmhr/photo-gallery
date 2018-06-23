@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { File } from './api/Files'
-import style from '../style/explorer.css'
+import style from '../style/explorer.scss'
 
 export interface ExplorerProps {
     dirList: File[],

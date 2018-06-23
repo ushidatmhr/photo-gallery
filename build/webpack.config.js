@@ -19,8 +19,8 @@ module.exports = {
             test: /\.tsx?$/,
             loader: 'ts-loader'
         },{
-            test: /\.css$/,
-            loader: ['style-loader', 'css-loader?modules&localIdentName=[name]--[local]--[hash:base64:5]']
+            test: /\.scss$/,
+            loader: ['style-loader', 'css-loader?modules&localIdentName=[name]--[local]--[hash:base64:5]', 'sass-loader']
         }
         ]
     },

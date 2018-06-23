@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Files, { File } from './api/Files';
-import style from '../style/app.css'
+import style from '../style/app.scss'
 import Explorer from './Explorer';
 
 export interface AppState {
@@ -64,7 +64,7 @@ export default class PhotoGalleryApp extends React.Component<{}, AppState> {
                     <section>
                         <button onClick={this.openFileDialog}>open</button>
                     </section>
-                    <div>
+                    <div className={style.galleryContainer}>
                         {this.galleryRender()}
                     </div>
                 </section>
