@@ -65,9 +65,9 @@ export default class Explorer extends React.Component<ExplorerProps, ExplorerSta
             <ul className={style.dirList} style={{ display: (!parent) ? '' : 'none' }}>
                 {list.map((item) => (
                     <li key={item.name}>
-                        <section>
+                        <section className={style.itemRow}>
                             <span onClick={this.openTree}>▼</span>
-                            <span onClick={this.selectDir.bind(this, item)}>{item.name}</span>
+                            <span onClick={this.selectDir.bind(this, item)} className={style.dirName}>{item.name}</span>
                         </section>
                         {this.childNode(item.dir, item.name)}
                     </li>

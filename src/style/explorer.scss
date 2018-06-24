@@ -1,5 +1,19 @@
 .dirList {
     list-style: none;
+    padding: 0 0 0 1em;
+    cursor: pointer;
+
+    .itemRow {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+
+        .dirName {
+            &:hover {
+                background-color: antiquewhite;
+            }
+        }
+    }
 }
 
 .hide {
