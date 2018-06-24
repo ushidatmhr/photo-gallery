@@ -40,19 +40,18 @@ export default class PhotoGalleryApp extends React.Component<{}, AppState> {
         this.setState({
             fileList: files
         });
-        console.log(files)
     }
 
 
     galleryRender() {
         return (
-            <div>
+            <ul className={style.galleryContents}>
                 {this.state.fileList.map((file) => (
-                    <div key={file.name}>
-                        <img src={file.path} />
-                    </div>
+                    <li key={file.name}>
+                        <img src={file.path} className={style.img} />
+                    </li>
                 ))}
-            </div>
+            </ul>
         )
     }
 
@@ -61,7 +60,7 @@ export default class PhotoGalleryApp extends React.Component<{}, AppState> {
         return (
             <div className={style.main}>
                 <section className={style.mainContents}>
-                    <section>
+                    <section className={style.headerMenu}>
                         <button onClick={this.openFileDialog}>open</button>
                     </section>
                     <div className={style.galleryContainer}>
