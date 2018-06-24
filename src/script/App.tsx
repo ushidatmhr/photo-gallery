@@ -47,7 +47,7 @@ export default class PhotoGalleryApp extends React.Component<{}, AppState> {
         return (
             <ul className={style.galleryContents}>
                 {this.state.fileList.map((file) => (
-                    <li key={file.name}>
+                    <li key={file.name} className={style.itemWrap}>
                         <img src={file.path} className={style.img} />
                     </li>
                 ))}
