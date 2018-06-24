@@ -98,7 +98,7 @@ export default class Explorer extends React.Component<ExplorerProps, ExplorerSta
 
     render() {
         return (
-            <div>
+            <div className={style.dirListContainer}>
                 {this.childNode(this.props.dirList, '')}
             </div>
         )

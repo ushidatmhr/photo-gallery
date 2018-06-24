@@ -1,4 +1,5 @@
 import * as React from 'react'
+import * as ReactDom from 'react-dom'
 import Files, { File } from './api/Files';
 import style from '../style/app.scss'
 import Explorer from './Explorer';
@@ -44,6 +45,9 @@ export default class PhotoGalleryApp extends React.Component<{}, AppState> {
         this.setState({
             fileList: files
         });
+
+        var element = ReactDom.findDOMNode(this.refs.gallery) as HTMLElement;
+        element.scrollTop = 0;
     }
 
 
@@ -81,7 +85,7 @@ export default class PhotoGalleryApp extends React.Component<{}, AppState> {
                     <section className={style.headerMenu}>
                         <button onClick={this.openFileDialog}>open</button>
                     </section>
-                    <div className={style.galleryContainer}>
+                    <div className={style.galleryContainer} ref="gallery">
                         {this.galleryRender()}
                     </div>
                 </section>
