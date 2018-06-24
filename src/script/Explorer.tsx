@@ -8,6 +8,7 @@ export interface ExplorerProps {
 }
 
 export interface ExplorerState {
+    selectedDirName: string
 }
 
 export default class Explorer extends React.Component<ExplorerProps, ExplorerState> {
@@ -16,6 +17,7 @@ export default class Explorer extends React.Component<ExplorerProps, ExplorerSta
         super(props);
 
         this.state = {
+            selectedDirName: ''
         }
 
         this.openTree = this.openTree.bind(this);
@@ -52,7 +54,11 @@ export default class Explorer extends React.Component<ExplorerProps, ExplorerSta
     }
 
 
-    selectDir(dir: File) {
+    selectDir(dir: File): void {
+
+        this.setState({
+            selectedDirName: dir.name
+        });
 
         this.props.fileSelect(dir);
         // this.render();
@@ -78,7 +84,9 @@ export default class Explorer extends React.Component<ExplorerProps, ExplorerSta
                             <span onClick={this.openTree.bind(this, item)} className={style.navi}>
                                 {item.dir.length != 0 && "＋"}
                             </span>
-                            <span onClick={this.selectDir.bind(this, item)} className={style.dirName}>{item.name}</span>
+                            <span onClick={this.selectDir.bind(this, item)} className={`${style.dirName} ${this.state.selectedDirName == item.name && style.selected}`}>
+                                {item.name}
+                            </span>
                         </section>
                         {this.childNode(item.dir, item.name)}
                     </li>
