@@ -81,7 +81,9 @@ export default class Files {
 
             var p = path.join(dirPath, file);
 
-            if (fs.statSync(p).isFile && this.isFileType(file, types)) {
+            if (fs.statSync(p).isFile
+                && this.isEnableFile(file)
+                && this.isFileType(file, types)) {
 
                 fileList.push({
                     name: file,
@@ -92,6 +94,19 @@ export default class Files {
         });
 
         return fileList;
+    }
+
+
+    /**
+     * 有効なファイル化判定する。
+     * @param file ファイル名
+     */
+    private static isEnableFile(file: string): boolean {
+        if (file.substr(0, 1) == '.') {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 
