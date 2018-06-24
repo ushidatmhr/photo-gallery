@@ -2,10 +2,12 @@ import * as React from 'react'
 import Files, { File } from './api/Files';
 import style from '../style/app.scss'
 import Explorer from './Explorer';
+import Preview from './Preview';
 
 export interface AppState {
     dirList: File[],
     fileList: File[],
+    preview: File
 }
 
 export default class PhotoGalleryApp extends React.Component<{}, AppState> {
@@ -14,12 +16,14 @@ export default class PhotoGalleryApp extends React.Component<{}, AppState> {
         super(props);
         this.state = {
             dirList: [],
-            fileList: []
+            fileList: [],
+            preview: null
         }
 
         this.openFileDialog = this.openFileDialog.bind(this);
         this.selectFile = this.selectFile.bind(this);
         this.galleryRender = this.galleryRender.bind(this);
+        this.cancelPreview = this.cancelPreview.bind(this);
     }
 
 
@@ -43,11 +47,25 @@ export default class PhotoGalleryApp extends React.Component<{}, AppState> {
     }
 
 
+    setPreview(file: File, event: React.MouseEvent<HTMLLIElement>) {
+        this.setState({
+            preview: file
+        });
+    }
+
+
+    cancelPreview() {
+        this.setState({
+            preview: null
+        });
+    }
+
+
     galleryRender() {
         return (
             <ul className={style.galleryContents}>
                 {this.state.fileList.map((file) => (
-                    <li key={file.name} className={style.itemWrap}>
+                    <li key={file.name} className={style.itemWrap} onClick={this.setPreview.bind(this, file)}>
                         <img src={file.path} className={style.img} />
                     </li>
                 ))}
@@ -70,6 +88,7 @@ export default class PhotoGalleryApp extends React.Component<{}, AppState> {
                 <section className={style.sideMenu}>
                     <Explorer dirList={this.state.dirList} fileSelect={this.selectFile} />
                 </section>
+                <Preview image={this.state.preview} cancel={this.cancelPreview} />
             </div>
         )
     }
