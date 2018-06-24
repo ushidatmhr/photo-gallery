@@ -8,7 +8,6 @@ export interface ExplorerProps {
 }
 
 export interface ExplorerState {
-
 }
 
 export default class Explorer extends React.Component<ExplorerProps, ExplorerState> {
@@ -28,25 +27,35 @@ export default class Explorer extends React.Component<ExplorerProps, ExplorerSta
      * ディレクトリツリーの開閉を行う
      * @param event イベント
      */
-    openTree(event: React.MouseEvent<HTMLLIElement>): void {
+    openTree(dir: File, event: React.MouseEvent<HTMLLIElement>): void {
 
         event.stopPropagation();
 
         var ulElement = event.currentTarget.parentElement.parentElement.lastElementChild as HTMLUListElement;
+        var naviStr = '';
 
         switch (ulElement.style.display) {
             case 'block':
                 ulElement.style.display = 'none';
+                naviStr = "＋";
                 break;
             case 'none':
                 ulElement.style.display = 'block';
+                naviStr = "ー";
                 break;
         }
+
+        if (dir.dir.length != 0) {
+            event.currentTarget.innerText = naviStr;
+        }
+
     }
 
 
     selectDir(dir: File) {
+
         this.props.fileSelect(dir);
+        // this.render();
     }
 
 
@@ -66,7 +75,9 @@ export default class Explorer extends React.Component<ExplorerProps, ExplorerSta
                 {list.map((item) => (
                     <li key={item.name}>
                         <section className={style.itemRow}>
-                            <span onClick={this.openTree}>▼</span>
+                            <span onClick={this.openTree.bind(this, item)} className={style.navi}>
+                                {item.dir.length != 0 && "＋"}
+                            </span>
                             <span onClick={this.selectDir.bind(this, item)} className={style.dirName}>{item.name}</span>
                         </section>
                         {this.childNode(item.dir, item.name)}

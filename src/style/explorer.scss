@@ -8,7 +8,14 @@
         flex-direction: row;
         flex-wrap: nowrap;
 
+        .navi {
+            width: 1em;
+        }
+
         .dirName {
+            flex-grow: 1;
+            min-height: 24px;
+
             &:hover {
                 background-color: antiquewhite;
             }
