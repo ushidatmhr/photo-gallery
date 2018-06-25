@@ -8,7 +8,8 @@ import Preview from './Preview';
 export interface AppState {
     dirList: File[],
     fileList: File[],
-    preview: File
+    preview: File,
+    viewMode: string
 }
 
 export default class PhotoGalleryApp extends React.Component<{}, AppState> {
@@ -18,11 +19,13 @@ export default class PhotoGalleryApp extends React.Component<{}, AppState> {
         this.state = {
             dirList: [],
             fileList: [],
-            preview: null
+            preview: null,
+            viewMode: style.list
         }
 
         this.openFileDialog = this.openFileDialog.bind(this);
         this.selectFile = this.selectFile.bind(this);
+        this.changeViewMode = this.changeViewMode.bind(this);
         this.galleryRender = this.galleryRender.bind(this);
         this.cancelPreview = this.cancelPreview.bind(this);
     }
@@ -51,6 +54,25 @@ export default class PhotoGalleryApp extends React.Component<{}, AppState> {
     }
 
 
+    changeViewMode() {
+
+        var view = '';
+
+        switch (this.state.viewMode) {
+            case style.grid:
+                view = style.list;
+                break;
+            case style.list:
+                view = style.grid;
+                break;
+        }
+
+        this.setState({
+            viewMode: view
+        });
+    }
+
+
     setPreview(file: File, event: React.MouseEvent<HTMLLIElement>) {
         this.setState({
             preview: file
@@ -67,7 +89,7 @@ export default class PhotoGalleryApp extends React.Component<{}, AppState> {
 
     galleryRender() {
         return (
-            <ul className={style.galleryContents}>
+            <ul className={`${style.galleryContents} ${this.state.viewMode}`}>
                 {this.state.fileList.map((file) => (
                     <li key={file.name} className={style.itemWrap} onClick={this.setPreview.bind(this, file)}>
                         <img src={file.path} className={style.img} />
@@ -84,6 +106,7 @@ export default class PhotoGalleryApp extends React.Component<{}, AppState> {
                 <section className={style.mainContents}>
                     <section className={style.headerMenu}>
                         <button onClick={this.openFileDialog}>open</button>
+                        <button onClick={this.changeViewMode}>Mode</button>
                     </section>
                     <div className={style.galleryContainer} ref="gallery">
                         {this.galleryRender()}
