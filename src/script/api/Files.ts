@@ -29,7 +29,12 @@ export default class Files {
                     return;
                 }
 
-                this.addDirectory(fileList, directories[0]);
+                fileList.push({
+                    name: path.basename(directories[0]),
+                    path: directories[0],
+                    dir: []
+                });
+                this.addDirectory(fileList[0].dir, directories[0]);
 
                 callback(fileList);
 
