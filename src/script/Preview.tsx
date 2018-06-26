@@ -11,10 +11,17 @@ export interface PreviewProps {
 
 export default class Preview extends React.Component<PreviewProps, {}> {
 
+    private basePoint: {
+        x: number,
+        y: number
+    }
+
     constructor(props) {
         super(props);
 
         this.randomChange = this.randomChange.bind(this);
+        this.setBasePoint = this.setBasePoint.bind(this);
+        this.dragScroll = this.dragScroll.bind(this);
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -31,6 +38,33 @@ export default class Preview extends React.Component<PreviewProps, {}> {
     }
 
 
+    setBasePoint(e: React.DragEvent<HTMLElement>) {
+
+        this.basePoint = {
+            x: e.clientX,
+            y: e.clientY
+        }
+    }
+
+
+    dragScroll(e: React.DragEvent<HTMLElement>) {
+
+        e.preventDefault();
+
+        console.log(e);
+        console.log(e.clientX);
+
+        var content = e.currentTarget as HTMLElement;
+        content.scrollLeft += this.basePoint.x - e.clientX;
+        content.scrollTop += this.basePoint.y - e.clientY;
+
+        this.basePoint = {
+            x: e.clientX,
+            y: e.clientY
+        }
+    }
+
+
     render() {
 
         if (!this.props.image) {
@@ -38,7 +72,7 @@ export default class Preview extends React.Component<PreviewProps, {}> {
         }
 
         return (
-            <div className={style.preview} ref="preview">
+            <div className={style.preview} ref="preview" onDragStart={this.setBasePoint} onDragOver={this.dragScroll}>
                 <img src={this.props.image.path} onClick={this.props.cancel} onContextMenu={this.randomChange} />
             </div>
         );
