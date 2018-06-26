@@ -5,13 +5,16 @@ import style from '../style/preview.scss'
 
 export interface PreviewProps {
     image: File,
-    cancel: () => void
+    cancel: () => void,
+    random: () => void
 }
 
 export default class Preview extends React.Component<PreviewProps, {}> {
 
     constructor(props) {
         super(props);
+
+        this.randomChange = this.randomChange.bind(this);
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -22,6 +25,12 @@ export default class Preview extends React.Component<PreviewProps, {}> {
         }
     }
 
+
+    randomChange() {
+        this.props.random();
+    }
+
+
     render() {
 
         if (!this.props.image) {
@@ -30,7 +39,7 @@ export default class Preview extends React.Component<PreviewProps, {}> {
 
         return (
             <div className={style.preview} ref="preview">
-                <img src={this.props.image.path} onClick={this.props.cancel} />
+                <img src={this.props.image.path} onClick={this.props.cancel} onContextMenu={this.randomChange} />
             </div>
         );
     }

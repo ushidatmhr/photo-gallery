@@ -28,6 +28,7 @@ export default class PhotoGalleryApp extends React.Component<{}, AppState> {
         this.changeViewMode = this.changeViewMode.bind(this);
         this.galleryRender = this.galleryRender.bind(this);
         this.cancelPreview = this.cancelPreview.bind(this);
+        this.randomSelectFile = this.randomSelectFile.bind(this);
     }
 
 
@@ -87,6 +88,14 @@ export default class PhotoGalleryApp extends React.Component<{}, AppState> {
     }
 
 
+    randomSelectFile(): void {
+        var random = this.state.fileList[Math.floor(Math.random() * this.state.fileList.length)];
+        this.setState({
+            preview: random
+        });
+    }
+
+
     galleryRender() {
         return (
             <ul className={`${style.galleryContents} ${this.state.viewMode}`}>
@@ -115,7 +124,7 @@ export default class PhotoGalleryApp extends React.Component<{}, AppState> {
                 <section className={style.sideMenu}>
                     <Explorer dirList={this.state.dirList} fileSelect={this.selectFile} />
                 </section>
-                <Preview image={this.state.preview} cancel={this.cancelPreview} />
+                <Preview image={this.state.preview} cancel={this.cancelPreview} random={this.randomSelectFile} />
             </div>
         )
     }
