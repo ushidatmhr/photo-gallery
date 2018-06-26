@@ -90,6 +90,8 @@ export default class Files {
                     path: p,
                     dir: []
                 });
+
+                this.sortByFileName(fileList);
             }
         });
 
@@ -98,7 +100,7 @@ export default class Files {
 
 
     /**
-     * 有効なファイル化判定する。
+     * 有効なファイルか判定する。
      * @param file ファイル名
      */
     private static isEnableFile(file: string): boolean {
@@ -127,13 +129,34 @@ export default class Files {
     }
 
 
-    /**
-     * 
-     * @param dir 
-     * @param file 
-     */
-    private static convertLocalPath(dir: string, file: string): string {
-        return 'file:///' + dir + '/' + encodeURI(file);
+    public static sortByFileName(files: File[]) {
+        files.sort((file1: File, file2: File) => {
+            var fullWidthNums, i, j, A, B, aa, bb, fwn;
+            fullWidthNums = '０１２３４５６７８９';
+            i = j = -1;
+            while (true) {
+                A = file1.name.charAt(++i).toLowerCase();
+                B = file2.name.charAt(++j).toLowerCase();
+                if (!A) return -1;
+                if (!B) return 1;
+                if (~(fwn = fullWidthNums.indexOf(A))) A = '' + fwn;
+                if (~(fwn = fullWidthNums.indexOf(B))) B = '' + fwn;
+                if (isFinite(A) && isFinite(B)) {
+                    while ((aa = file1.name.charAt(++i)) && isFinite(aa)
+                        || ~(fwn = fullWidthNums.indexOf(aa)) && (aa = '' + fwn)) A += aa;
+                    while ((bb = file2.name.charAt(++j)) && isFinite(bb)
+                        || ~(fwn = fullWidthNums.indexOf(bb)) && (bb = '' + fwn)) B += bb;
+                    if (+A === +B) {
+                        if (A.length === B.length) continue;
+                        return B.length - A.length;
+                    } else {
+                        return +A - +B;
+                    }
+                }
+                if (A < B) return -1;
+                if (A > B) return 1;
+            }
+        });
     }
 }
 
