@@ -51,9 +51,6 @@ export default class Preview extends React.Component<PreviewProps, {}> {
 
         e.preventDefault();
 
-        console.log(e);
-        console.log(e.clientX);
-
         var content = e.currentTarget as HTMLElement;
         content.scrollLeft += this.basePoint.x - e.clientX;
         content.scrollTop += this.basePoint.y - e.clientY;
