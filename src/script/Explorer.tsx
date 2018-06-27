@@ -26,10 +26,11 @@ export default class Explorer extends React.Component<ExplorerProps, ExplorerSta
 
 
     componentDidUpdate(prevProps, prevState) {
-        // this.selectDir(nextProps.dirList[0]);
         if (prevProps.dirList.length == 0 || this.props.dirList[0].path != prevProps.dirList[0].path) {
-            // this.props.fileSelect(this.props.dirList[0]);
-            this.selectDir(this.props.dirList[0]);
+            var rootDir = this.props.dirList[0];
+            if (rootDir) {
+                this.selectDir(rootDir);
+            }
         }
     }
 

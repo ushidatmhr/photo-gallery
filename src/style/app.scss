@@ -7,6 +7,23 @@
 
     .headerMenu {
         height: 5vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: left;
+
+        .menuBtn {
+            width: 64px;
+            background-color: #81d4fa;
+            border: 1px solid #4ba3c7;
+
+            &:focus {
+                outline: none;
+            }
+
+            &:hover {
+                background-color: #b3e5fc;
+            }
+        }
     }
 
     .galleryContainer {

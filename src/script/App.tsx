@@ -4,6 +4,7 @@ import Files, { File } from './api/Files';
 import style from '../style/app.scss'
 import Explorer from './Explorer';
 import Preview from './Preview';
+import * as FontAwesome from 'react-icons/lib/fa'
 
 export interface AppState {
     dirList: File[],
@@ -29,6 +30,7 @@ export default class PhotoGalleryApp extends React.Component<{}, AppState> {
         this.galleryRender = this.galleryRender.bind(this);
         this.cancelPreview = this.cancelPreview.bind(this);
         this.randomSelectFile = this.randomSelectFile.bind(this);
+        this.viewModeIcon = this.viewModeIcon.bind(this);
     }
 
 
@@ -109,13 +111,34 @@ export default class PhotoGalleryApp extends React.Component<{}, AppState> {
     }
 
 
+    viewModeIcon(): JSX.Element {
+        switch (this.state.viewMode) {
+            case style.grid:
+                return (
+                    <FontAwesome.FaListUl size={30} color={'#616161'} />
+                )
+            case style.list:
+                return (
+                    <FontAwesome.FaTh size={30} color={'#616161'} />
+                )
+            default:
+                return (<div />)
+        }
+    }
+
+
     render() {
         return (
             <div className={style.main}>
                 <section className={style.mainContents}>
                     <section className={style.headerMenu}>
-                        <button onClick={this.openFileDialog}>open</button>
-                        <button onClick={this.changeViewMode}>Mode</button>
+                        <button onClick={this.openFileDialog} className={style.menuBtn}>
+                            <FontAwesome.FaFolderO size={30} color={'#616161'} />
+                        </button>
+                        <button onClick={this.changeViewMode} className={style.menuBtn}>
+                            {this.viewModeIcon()}
+                        </button>
+
                     </section>
                     <div className={style.galleryContainer} ref="gallery">
                         {this.galleryRender()}
