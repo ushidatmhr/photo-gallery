@@ -54,6 +54,8 @@ export default class PhotoGalleryApp extends React.Component<{}, AppState> {
 
         var element = ReactDom.findDOMNode(this.refs.gallery) as HTMLElement;
         element.scrollTop = 0;
+
+        document.title = dir.name;
     }
 
 
