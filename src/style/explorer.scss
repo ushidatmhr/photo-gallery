@@ -1,6 +1,7 @@
 .dirListContainer {
     height: 100%;
     overflow: scroll;
+    padding: 0 1em 0 0;
 }
 
 .dirList {
@@ -20,10 +21,11 @@
         .dirName {
             flex-grow: 1;
             min-height: 24px;
+            padding: 3px;
 
             &:hover,
             &.selected {
-                background-color: antiquewhite;
+                font-weight: bold;
             }
         }
     }
