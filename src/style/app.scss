@@ -1,9 +1,6 @@
 .main {
     display: flex;
-}
-
-.mainContents {
-    width: 100%;
+    flex-direction: column;
 
     .headerMenu {
         height: 5vh;
@@ -26,51 +23,59 @@
         }
     }
 
-    .galleryContainer {
-        background-color: #E1E2E1;
+    .mainContents {
+        display: flex;
+        flex-direction: row;
         height: 95vh;
-        overflow-y: scroll;
 
-        .galleryContents {
-            list-style: none;
+        .galleryContainer {
+            background-color: #E1E2E1;
+            overflow-y: scroll;
+            flex-grow: 1;
 
-            &.grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, 200px);
-                grid-auto-rows: minmax(200px, 260px);
-                grid-gap: 5px;
-                justify-content: space-around;
-                padding: 10px;
+            .galleryContents {
+                list-style: none;
 
-                .itemWrap {
-                    text-align: center;
+                &.grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, 200px);
+                    grid-auto-rows: minmax(200px, 260px);
+                    grid-gap: 5px;
+                    justify-content: space-around;
+                    padding: 10px;
 
-                    .img {
-                        max-width: 100%;
-                        max-height: 100%;
+                    .itemWrap {
+                        text-align: center;
+
+                        .img {
+                            max-width: 100%;
+                            max-height: 100%;
+                        }
                     }
                 }
-            }
 
-            &.list {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                padding: 20px;
+                &.list {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    padding: 20px;
 
-                .itemWrap {
-                    margin: 0 0 50px 0;
-                    text-align: center;
+                    .itemWrap {
+                        margin: 0 0 50px 0;
+                        text-align: center;
 
-                    .img {
-                        max-width: 100%;
+                        .img {
+                            max-width: 100%;
+                        }
                     }
                 }
             }
         }
     }
-}
 
-.sideMenu {
-    width: 500px;
+    .sideMenu {
+        width: 350px;
+        flex-shrink: 0;
+        background-color: #fff3e0;
+    }
 }

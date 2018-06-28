@@ -130,7 +130,7 @@ export default class PhotoGalleryApp extends React.Component<{}, AppState> {
     render() {
         return (
             <div className={style.main}>
-                <section className={style.mainContents}>
+
                     <section className={style.headerMenu}>
                         <button onClick={this.openFileDialog} className={style.menuBtn}>
                             <FontAwesome.FaFolderO size={30} color={'#616161'} />
@@ -138,14 +138,17 @@ export default class PhotoGalleryApp extends React.Component<{}, AppState> {
                         <button onClick={this.changeViewMode} className={style.menuBtn}>
                             {this.viewModeIcon()}
                         </button>
-
                     </section>
+
+                <section className={style.mainContents}>
                     <div className={style.galleryContainer} ref="gallery">
                         {this.galleryRender()}
                     </div>
-                </section>
-                <section className={style.sideMenu}>
-                    <Explorer dirList={this.state.dirList} fileSelect={this.selectFile} />
+
+                    <section className={style.sideMenu}>
+                        <Explorer dirList={this.state.dirList} fileSelect={this.selectFile} />
+                    </section>
+
                 </section>
                 <Preview image={this.state.preview} cancel={this.cancelPreview} random={this.randomSelectFile} />
             </div>
