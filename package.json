@@ -4,7 +4,6 @@
   "description": "Electron製の簡易画像ビューア",
   "main": "app/index.js",
   "scripts": {
-    "gulp": "gulp",
     "electron": "electron ./app/main.js",
     "webpack": "webpack --config build/webpack.config.js --watch"
   },
