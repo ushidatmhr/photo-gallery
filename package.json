@@ -2,10 +2,11 @@
   "name": "photo-gallery",
   "version": "1.0.0",
   "description": "Electron製の簡易画像ビューア",
-  "main": "app/index.js",
+  "main": "app/main.js",
   "scripts": {
     "electron": "electron ./app/main.js",
-    "webpack": "webpack --config build/webpack.config.js --watch"
+    "webpack": "webpack --config build/webpack.config.js --watch",
+    "package": "electron-packager . gallery --platform=win32 --arch=x64"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
     "awesome-typescript-loader": "^5.0.0",
     "babel-loader": "^7.1.4",
     "css-loader": "^0.28.11",
+    "electron-packager": "^13.1.1",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.3",
     "style-loader": "^0.21.0",
